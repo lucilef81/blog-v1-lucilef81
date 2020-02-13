@@ -8,7 +8,7 @@ import MenuStyled from './MenuStyled';
 
 // https://fr.reactjs.org/docs/events.html
 
-const Menu = ({ categories }) => (
+const Menu = ({ categories, setCurrentCategory }) => (
   <MenuStyled>
     <nav>
       {categories.map((category) => (
@@ -17,8 +17,9 @@ const Menu = ({ categories }) => (
           // on attache l'événement directement sur la description jsx de notre élement
           // on associe une fonction de rappel qui sera executée quand l'événement aura lieu
           // comme à notre habitude on peut récupérer en paramètre un objet représentant l'événement
-          onClick={(event) => {
-            console.log('click', event.target);
+          onClick={() => {
+            // console.log('je clique sur', category);
+            setCurrentCategory(category);
           }}
           key={category}
         >
@@ -31,6 +32,7 @@ const Menu = ({ categories }) => (
 
 Menu.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setCurrentCategory: PropTypes.func.isRequired,
 };
 
 export default Menu;

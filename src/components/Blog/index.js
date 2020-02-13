@@ -26,7 +26,9 @@ const Blog = () => {
   // - en 1er la valeur courante de notre état / un accès en lecture à notre état
   // - en 2ème une fonction, un moyen de modifier notre état en déclanchant un nouveau rendu / une mise à jour de l'interface pour cet état / un accès en écriture à notre état
   // on va souvent préféré destructurer le retour de useState pour récupérer l'état et le setter
-  let [currentCategory, setCurrentCategory] = useState('Angular');
+  const [currentCategory, setCurrentCategory] = useState('Angular');
+
+  // console.log('la fonction composant Blog est executée, l\'état est : ', currentCategory);
 
   const filteredPosts = posts.filter((post) => post.category === currentCategory);
 
@@ -40,18 +42,8 @@ const Blog = () => {
   */
 
   return (
-    <BlogStyled onClick={() => {
-      // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-      // ce code n'est pas bon, on ne doit JAMAIS modifier directement une variable d'état (retournée par useState)
-      // on devra passer par le setter pour la modifier ET déclencher un rendu / une maj de l'ui
-      // // lors d'une intéraction je veux redéfinir ma donnée
-      // currentCategory = 'React';
-      // // et refaire le rendu avec ces nouvelles données
-      // render() ???
-      // /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-      setCurrentCategory('React');
-    }}>
-      <Menu categories={categories} />
+    <BlogStyled>
+      <Menu categories={categories} setCurrentCategory={setCurrentCategory} />
       <Articles articles={filteredPosts} />
       <Footer />
     </BlogStyled>
