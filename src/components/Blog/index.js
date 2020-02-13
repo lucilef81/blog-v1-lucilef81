@@ -9,12 +9,18 @@ import posts from 'src/data/posts';
 
 import BlogStyled from './BlogStyled';
 
-const Blog = () => (
-  <BlogStyled>
-    <Menu categories={categories} />
-    <Articles articles={posts} />
-    <Footer />
-  </BlogStyled>
-);
+const Blog = () => {
+  const currentCategory = 'Angular';
+
+  const filteredPosts = posts.filter((post) => post.category === currentCategory);
+
+  return (
+    <BlogStyled>
+      <Menu categories={categories} />
+      <Articles articles={filteredPosts} />
+      <Footer />
+    </BlogStyled>
+  );
+};
 
 export default Blog;
