@@ -32,9 +32,11 @@ const MenuStyled = styled.header`
 
   a {
     color: #101010;
+    margin: 0 1em;
+    cursor: pointer;
 
     &:hover {
-      color: red;
+      color: ${theme.primaryColor};
     }
   }
 `;

@@ -1,11 +1,13 @@
 import React from 'react';
 
+import ArticleStyled from './ArticleStyled';
+
 const Article = () => (
-  <article>
+  <ArticleStyled>
     <h2>Lorem ipsum dolor sit amet.</h2>
-    <p>Angular</p>
+    <p className="tag">Angular</p>
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus dicta perferendis ipsa quo placeat atque, similique beatae recusandae ratione vel!</p>
-  </article>
+  </ArticleStyled>
 );
 
 export default Article;

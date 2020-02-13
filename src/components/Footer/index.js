@@ -1,12 +1,14 @@
 import React from 'react';
 
+import FooterStyled from './FooterStyled';
+
 const Footer = () => {
   const now = new Date();
   const year = now.getFullYear();
   return (
-    <footer>
+    <FooterStyled>
       <p>DevOfThrones, le blog du développeur React {year} &copy;</p>
-    </footer>
+    </FooterStyled>
   );
 };
 
