@@ -4,6 +4,8 @@ import Footer from 'src/components/Footer';
 import Menu from 'src/components/Menu';
 import Articles from 'src/components/Articles';
 
+import categories from 'src/data/categories';
+
 import BlogStyled from './BlogStyled';
 
 /* 
@@ -14,10 +16,9 @@ import BlogStyled from './BlogStyled';
   la fonction retournera un élement react du type spécifié, ici une div, cette div sera enrichie d'une classe qui appliquera les styles que j'ai définis
 */
 
-
 const Blog = () => (
   <BlogStyled>
-    <Menu />
+    <Menu categories={categories} />
     <Articles />
     <Footer />
   </BlogStyled>
