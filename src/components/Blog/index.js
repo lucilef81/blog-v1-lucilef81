@@ -1,10 +1,13 @@
 import React from 'react';
 
+import Menu from 'src/components/Menu';
+import Footer from 'src/components/Footer';
+
 const Blog = () => (
   <div id="container">
-    <div>Menu</div>
+    <Menu />
     <div>Articles</div>
-    <div>Footer</div>
+    <Footer />
   </div>
 );
 
