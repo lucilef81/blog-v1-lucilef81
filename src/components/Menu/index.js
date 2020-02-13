@@ -1,14 +1,16 @@
 import React from 'react';
 
+import MenuStyled from './MenuStyled';
+
 const Menu = () => (
-  <header>
+  <MenuStyled>
     <nav>
       <a>Angular</a>
       <a>React</a>
       <a>Oclock</a>
       <a>Autre</a>
     </nav>
-  </header>
+  </MenuStyled>
 );
 
 export default Menu;
