@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import Footer from 'src/components/Footer';
 import Menu from 'src/components/Menu';
 import Articles from 'src/components/Articles';
 
 import categories from 'src/data/categories';
-// import posts from 'src/data/posts';
 
 import BlogStyled from './BlogStyled';
 
@@ -43,6 +43,30 @@ const Blog = () => {
     si c'est true on prend true
   */
 
+  const fetchPosts = () => {
+    // axios retourne une promesse, un code qui va mettre potentiellement longtemps à s'executer
+    // le code n'est pas mis en pause
+    // quand la promesse est resolue, cad ici quand la requette http est terminée et qu'on a la reponse
+    // on va pouvoir réagir
+    // https://github.com/axios/axios
+    axios.get('https://oclock-open-apis.now.sh/api/blog/posts')
+      // en cas de succès
+      .then((response) => {
+        // console.log('succès', response.data);
+        // je réassigne ma variable d'état post par son setter ce qui déclenche un nouveau rendu
+        // tous les composants sont à nouveau executées, le jsx est à nouveau retournée en fonction de mes data, cad mes variables d'état qui ont changées, donc le jsx retournée change, le rendu de react dom change, l'interface dans le navigateur change
+        setPosts(response.data);
+      })
+      // en cas d'erreur
+      .catch((error) => {
+        console.error('error', error);
+      })
+      // dans les 2 cas
+      .finally(() => {
+        // console.log('la requete est terminée');
+      });
+  };
+
   return (
     <BlogStyled>
       <Menu
@@ -51,7 +75,7 @@ const Blog = () => {
         currentCategory={currentCategory}
       />
       {posts.length === 0 && (
-        <button type="button">Cliquez pour charger</button>
+        <button onClick={fetchPosts} type="button">Cliquez pour charger</button>
       )}
       {posts.length !== 0 && (
         <Articles category={currentCategory} articles={selectedPosts} />
