@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+// on importe useEffect
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 import Footer from 'src/components/Footer';
 import Menu from 'src/components/Menu';
 import Articles from 'src/components/Articles';
 
 import categories from 'src/data/categories';
+import theme from 'src/style/theme';
 
 import BlogStyled from './BlogStyled';
+
 
 const Blog = () => {
   const [currentCategory, setCurrentCategory] = useState('Accueil');
@@ -44,6 +48,7 @@ const Blog = () => {
   */
 
   const fetchPosts = () => {
+    console.log('le chargement est déclenché');
     // axios retourne une promesse, un code qui va mettre potentiellement longtemps à s'executer
     // le code n'est pas mis en pause
     // quand la promesse est resolue, cad ici quand la requette http est terminée et qu'on a la reponse
@@ -67,6 +72,27 @@ const Blog = () => {
       });
   };
 
+  // problème : on veut déclencher un effet, ici un appel à une api
+  // seulement une fois quand le composant est monté / rendu une première fois
+  // pour les rendus suivants / les mises à jour on ne souhaite pas appelé à nouveau l'api
+  // les mises à jours / les nous rendus / les nouvelles executions de nos fonctions composants sont déclenchés par une évolution des états, ou la reception de nouvelles props
+  // on va distinguer 3 étape dans la vie du composant :
+  // la naissance : le montage -> initialisé par l'instanciation du composant
+  // la vie : les mises à jour -> initialisé par la modification d'un état ou la reception de nouvelles props
+  // la mort : le démontage -> initialisé par le fait de cesser d'instancier un composant
+  // http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+  // on va pouvoir réagir à ces phases spécifiques pour déclencher des effets avec :
+  // le hook d'effet useEffect
+  // fetchPosts();
+
+  // dans le composant si on veut "réagir à un rendu du composant dans le DOM réel" on utilise useEffect
+  // la fonction de rappel ici est executée pour toutes les phases de rendu, le rendu initial (montage) et les rendus de mise à jour
+  // https://fr.reactjs.org/docs/hooks-effect.html
+  // useEffect peut prend un deuxième argument, un tableau de dépendances, si une donnée de ce tableau évolue la fonction de rappel est executé, si ce tableau est vide, la fonction de rappel ne sera executée qu'au montage
+  useEffect(fetchPosts, []); // -> ici on a un tableau vide en 2ème argument, l'effet ne sera executé qu'au montage
+  // si on ne met rien en 2ème argument la fonction de rappel est executée pour le rendu initial ET les rendus de mise à jour
+
+
   return (
     <BlogStyled>
       <Menu
@@ -75,7 +101,7 @@ const Blog = () => {
         currentCategory={currentCategory}
       />
       {posts.length === 0 && (
-        <button onClick={fetchPosts} type="button">Cliquez pour charger</button>
+        <ReactLoading type="spin" color={theme.primaryColor} height={50} width={50} />
       )}
       {posts.length !== 0 && (
         <Articles category={currentCategory} articles={selectedPosts} />
