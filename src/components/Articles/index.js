@@ -5,24 +5,29 @@ import Article from 'src/components/Article';
 
 import ArticlesStyled from './ArticlesStyled';
 
-const Articles = ({ articles }) => (
-  <ArticlesStyled>
-    {articles.map((article) => (
-      <Article
-        key={article.id}
-        // title={article.title}
-        // excerpt={article.excerpt}
-        // category={article.category}
-        {...article}
-      />
-    ))}
-  </ArticlesStyled>
-);
+const Articles = ({ articles, category }) => {
+  const title = (category === 'Accueil') ? 'Dev of Thrones' : `Articles de la catégorie ${category}`;
+  return (
+    <ArticlesStyled>
+      <h1>{title}</h1>
+      {articles.map((article) => (
+        <Article
+          key={article.id}
+          // title={article.title}
+          // excerpt={article.excerpt}
+          // category={article.category}
+          {...article}
+        />
+      ))}
+    </ArticlesStyled>
+  );
+};
 
 Articles.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
   })).isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default Articles;

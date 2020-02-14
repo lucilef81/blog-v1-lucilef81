@@ -1,4 +1,4 @@
 export default {
-  primaryColor: '#e52354',
+  primaryColor: '#00F',
   fontTitle: '"Oswald", sans-serif',
 };

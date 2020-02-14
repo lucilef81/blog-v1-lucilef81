@@ -47,7 +47,7 @@ const Blog = () => {
   return (
     <BlogStyled>
       <Menu categories={categories} setCurrentCategory={setCurrentCategory} />
-      <Articles articles={selectedPosts} />
+      <Articles category={currentCategory} articles={selectedPosts} />
       <Footer />
     </BlogStyled>
   );
