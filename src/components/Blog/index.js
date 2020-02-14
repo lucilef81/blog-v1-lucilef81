@@ -18,14 +18,30 @@ const Blog = () => {
     selectedPosts = posts.filter((post) => post.category === currentCategory);
   }
 
-  // on peut préparer un composant intermédiaire
-  let Welcome;
-  if (posts.length === 0) {
-    Welcome = () => <button type="button">Cliquez pour charger</button>;
-  }
-  else {
-    Welcome = () => <Articles category={currentCategory} articles={selectedPosts} />;
-  }
+  /*
+    à propos des opérateurs logiques
+    && = les deux
+    true && true -> true
+    true && false -> false
+    false && true -> false
+    false && false -> false
+    false && 'toto' -> false
+    true && 'toto' -> 'toto'
+    l'interpreteur regarde la valeur de gauche, si c'est false alors l'ensemble est forcemment faux, donc on prend la valeur false
+    si la valeur de gauche est true alors on prend la valeur de droite telle quelle, donc si c'est true on prend true, si c'est false on prend false, si c'est "toto" on prend "toto", si c'est 123 on prend 123
+    Dans du jsx afficher un booléen ne produit aucun effet donc si c'est false on affiche rien, si c'est true et qu'on a mis du jsx à droite du && on affiche ce jsx
+    ---
+    marche aussi avec || mais c'est l'inverse
+    ou = au moins un des deux
+    true || true -> true
+    true || false -> true
+    false ||  true -> true
+    false || false -> false
+    false || 'toto' -> 'toto'
+    true || 'toto' -> true
+    si c'est faux on prend la valeur de droite telle quelle
+    si c'est true on prend true
+  */
 
   return (
     <BlogStyled>
@@ -34,7 +50,12 @@ const Blog = () => {
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
       />
-      <Welcome />
+      {posts.length === 0 && (
+        <button type="button">Cliquez pour charger</button>
+      )}
+      {posts.length !== 0 && (
+        <Articles category={currentCategory} articles={selectedPosts} />
+      )}
       <Footer />
     </BlogStyled>
   );
