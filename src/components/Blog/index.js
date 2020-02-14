@@ -26,11 +26,14 @@ const Blog = () => {
   // - en 1er la valeur courante de notre état / un accès en lecture à notre état
   // - en 2ème une fonction, un moyen de modifier notre état en déclanchant un nouveau rendu / une mise à jour de l'interface pour cet état / un accès en écriture à notre état
   // on va souvent préféré destructurer le retour de useState pour récupérer l'état et le setter
-  const [currentCategory, setCurrentCategory] = useState('Angular');
+  const [currentCategory, setCurrentCategory] = useState('Accueil');
 
   // console.log('la fonction composant Blog est executée, l\'état est : ', currentCategory);
 
-  const filteredPosts = posts.filter((post) => post.category === currentCategory);
+  let selectedPosts = posts;
+  if (currentCategory !== 'Accueil') {
+    selectedPosts = posts.filter((post) => post.category === currentCategory);
+  }
 
   /*
     on a décrit via nos composants imbriqués l'ui en fonction de nos données
@@ -44,7 +47,7 @@ const Blog = () => {
   return (
     <BlogStyled>
       <Menu categories={categories} setCurrentCategory={setCurrentCategory} />
-      <Articles articles={filteredPosts} />
+      <Articles articles={selectedPosts} />
       <Footer />
     </BlogStyled>
   );
