@@ -6,7 +6,8 @@ import Article from 'src/components/Article';
 import ArticlesStyled from './ArticlesStyled';
 
 const Articles = ({ articles, category }) => {
-  const title = (category === 'Accueil') ? 'Dev of Thrones' : `Articles de la catégorie ${category}`;
+  const articleCount = articles.length > 1 ? 'Articles' : 'Article';
+  const title = (category === 'Accueil') ? 'Dev of Thrones' : `${articleCount} de la catégorie ${category}`;
   return (
     <ArticlesStyled>
       <h1>{title}</h1>

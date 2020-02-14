@@ -38,7 +38,18 @@ const MenuStyled = styled.header`
     &:hover {
       color: ${theme.primaryColor};
     }
+
+    /* // .gRGEG a .active
+    .active { 
+      text-decoration: underline;
+    } */
+
+    /* .gRGEG a.active */
+    &.active {
+      text-decoration: underline;
+    }
   }
+
 `;
 
 export default MenuStyled;

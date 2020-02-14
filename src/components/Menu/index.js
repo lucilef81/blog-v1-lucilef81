@@ -3,22 +3,13 @@ import PropTypes from 'prop-types';
 
 import MenuStyled from './MenuStyled';
 
-// j'ai ["Angular", "React", "O’clock", "Autre"]
-// je veux [<a>Angular</a>,<a>React</a>,<a>Oclock</a>,<a>Autre</a>]
-
-// https://fr.reactjs.org/docs/events.html
-
-const Menu = ({ categories, setCurrentCategory }) => (
+const Menu = ({ categories, setCurrentCategory, currentCategory }) => (
   <MenuStyled>
     <nav>
       {categories.map((category) => (
         <a
-          className="truc"
-          // on attache l'événement directement sur la description jsx de notre élement
-          // on associe une fonction de rappel qui sera executée quand l'événement aura lieu
-          // comme à notre habitude on peut récupérer en paramètre un objet représentant l'événement
+          className={(category === currentCategory) ? 'active' : ''}
           onClick={() => {
-            // console.log('je clique sur', category);
             setCurrentCategory(category);
           }}
           key={category}
@@ -33,6 +24,7 @@ const Menu = ({ categories, setCurrentCategory }) => (
 Menu.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   setCurrentCategory: PropTypes.func.isRequired,
+  currentCategory: PropTypes.string.isRequired,
 };
 
 export default Menu;
