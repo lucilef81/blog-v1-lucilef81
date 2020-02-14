@@ -10,6 +10,14 @@ const ArticleStyled = styled.article`
     background-color: #f0f0f0;
   }
 
+  em {
+    opacity: 0.3;
+  }
+
+  strong {
+    background-color: yellow;
+  }
+
   h2 {
     font-family: ${theme.fontTitle};
     font-weight: bold;

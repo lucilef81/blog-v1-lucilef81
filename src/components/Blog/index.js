@@ -78,9 +78,6 @@ const Blog = () => {
     document.title = `${currentCategory} - Blog React`;
   }, [currentCategory]);
 
-
-
-
   return (
     <BlogStyled>
       <Menu
