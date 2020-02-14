@@ -1,7 +1,7 @@
 // on importe useEffect
 /*
-  useEffect(() => {}); // on définit un callback executé à chaque rendu (montage et mise à jour)
-  useEffect(() => {}, []); // on définit un callback executé uniquement rendu de montage
+  useEffect(() => {}); // on définit un callback executé à chaque rendu (montage + mise à jour)
+  useEffect(() => {}, []); // on définit un callback executé uniquement au rendu de montage
 */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -47,7 +47,38 @@ const Blog = () => {
   };
 
   // on déclenche un effet au premier rendu du composant
+  // on utilisera useEffect chaque fois qu'on a besoin de faire qqch après que le DOM réel ait été calculé, par ex :
+  // - Déclencher un chargement initial depuis une api
+  // - Chaque fois qu'on a besoin de lire le dom réel
+  // - Dès qu'on a besoin d'accéder à un element du DOM au dessus de mon application
   useEffect(fetchPosts, []);
+
+  // j'ajoute un effet qui s'execute au montage du blog = au premier rendu
+  useEffect(() => {
+    // j'ajoute un écouteur su window
+    window.addEventListener('keyup', (event) => {
+      // si la touche enfoncée par l'utilisateur est echap
+      if (event.key === 'Escape') {
+        // je veux aller sur la home -> je change l'état de mon application, il y aura un nouveau rendu
+        setCurrentCategory('Accueil');
+      }
+    });
+  }, []);
+
+
+  // version non optimisée : après CHAQUE rendu on déclenche un effet
+  // useEffect(() => {
+  //   console.log('nouveau rendu, je change le titre');
+  //   document.title = `${currentCategory} - Blog React`;
+  // });
+
+  // version optimisée : après chaque rendu où currentCategory change, mais pas le rendu ou currentCategory change pas
+  useEffect(() => {
+    console.log('nouveau rendu où currentCategory change, je change le titre');
+    document.title = `${currentCategory} - Blog React`;
+  }, [currentCategory]);
+
+
 
 
   return (
@@ -59,10 +90,18 @@ const Blog = () => {
       />
       {/* on conditionne notre jsx en fonction des données venant de l'état */}
       {posts.length === 0 && (
-        <ReactLoading type="spin" color={theme.primaryColor} height={50} width={50} />
+        <ReactLoading
+          type="spin"
+          color={theme.primaryColor}
+          height={50}
+          width={50}
+        />
       )}
       {posts.length !== 0 && (
-        <Articles category={currentCategory} articles={selectedPosts} />
+        <Articles
+          category={currentCategory}
+          articles={selectedPosts}
+        />
       )}
       <Footer />
     </BlogStyled>
