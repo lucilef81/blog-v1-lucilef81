@@ -3,26 +3,28 @@ import PropTypes from 'prop-types';
 
 import MenuStyled from './MenuStyled';
 
-const Menu = ({ categories, setCurrentCategory, currentCategory }) => (
-  <MenuStyled>
-    <nav>
-      {categories.map((category) => (
-        <a
-          className={(category === currentCategory) ? 'active' : ''}
-          onClick={() => {
-            setCurrentCategory(category);
-          }}
-          key={category}
-        >
-          {category}
-        </a>
-      ))}
-    </nav>
-  </MenuStyled>
-);
+const Menu = ({ categories, setCurrentCategory, currentCategory }) => {
+  return (
+    <MenuStyled>
+      <nav>
+        {categories.map(({ label }, index) => (
+          <a
+            className={label === currentCategory ? 'active' : ''}
+            onClick={() => {
+              setCurrentCategory(label);
+            }}
+            key={`category-${index}`}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+    </MenuStyled>
+  );
+};
 
 Menu.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.array.isRequired,
   setCurrentCategory: PropTypes.func.isRequired,
   currentCategory: PropTypes.string.isRequired,
 };

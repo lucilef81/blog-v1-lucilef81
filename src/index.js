@@ -2,6 +2,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import 'babel-polyfill';
+
 // == Import : local
 // Composants
 import Blog from 'src/components/Blog';
